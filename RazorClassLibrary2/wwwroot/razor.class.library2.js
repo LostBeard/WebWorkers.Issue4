@@ -4,3 +4,5 @@
 //export function showPrompt(message) {
 //  return prompt(message, 'Type anything here');
 //}
+
+console.log('razor.class.library2.js loaded');

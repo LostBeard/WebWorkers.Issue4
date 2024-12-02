@@ -18,11 +18,23 @@
 
 	<ItemGroup>
 		<!--
-			To demonstrate this bug, this RCL should reference the Nuget packaged RazorClassLibrary2 RCL
+			To demonstrate this bug, this Razor Class Library should reference the Nuget packaged RazorClassLibrary2 RCL
 						
 			NOTE: RazorClassLibrary2 must be a Nuget package and not a referenced project to trigger the bug. It can be locally hosted.
 		-->
-		<PackageReference Include="RazorClassLibrary2" Version="2.0.0" />
+		<!-- <PackageReference Include="RazorClassLibrary2" Version="2.0.2" /> -->
+		
+		<!-- 
+			Alternatively, reference SpawnDev.BlazorJS.WebWorkers:		
+			<PackageReference Include="SpawnDev.BlazorJS.WebWorkers" Version="2.5.22" /> 
+		
+			which uses:		
+			<StaticWebAssetBasePath>/</StaticWebAssetBasePath>
+		
+			and triggers this issue on publish builds
+		-->
+		<PackageReference Include="SpawnDev.BlazorJS.WebWorkers" Version="2.5.22" />
+		
 	</ItemGroup>
 
 	<ItemGroup>

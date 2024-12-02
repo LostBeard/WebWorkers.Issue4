@@ -13,7 +13,7 @@ The .Net 9 Blazor WASM compression build task, `ApplyCompressionNegotiation`, fa
 3. Create a new solution with an .Net 9 Razor Class Library and a .Net 9 Blazor WASM
 4. In the RCL, reference the Nuget package from step 2
 5. In the Blazor WASM app reference the RCL project in the same solution
-6. Publish the Blazor WASM
+6. Run `dotnet publish --nologo --configuration Release --output bin\Publish` in the Blazor WASM app folder to see the error. 
 
 You get an exception similar to:  
 ```
@@ -36,7 +36,9 @@ Restore complete (0.5s)
 Build failed with 1 error(s) and 1 warning(s) in 15.4s
 ```
 
-A workaround that will enable a publish build is to modify the `.csproj` of the Nuget package project.  
+7. Workaround: Disable compression (`<CompressionEnabled>false</CompressionEnabled>`) in the Blazor WASM app project's `.csproj` and the publish will succeed.
+
+A partial (useless*) workaround that will enable a `publish` build is to modify the `.csproj` of the Nuget package project. *But it breaks debug builds. The Nuget packages web assets will 404.
 
 Changing:  
 `<StaticWebAssetBasePath>/</StaticWebAssetBasePath>`  
@@ -44,16 +46,25 @@ Changing:
 To:  
 `<StaticWebAssetBasePath>/./</StaticWebAssetBasePath>`  
 
-!! IMPORTANT
-The above workaround breaks debugging. Assets from the Nuget package will be correctly added to publish builds but will fail to load in debug builds.
-
-## Demo projects
+## Repo Demo Projects
 The projects in this repo demonstrate this bug. 
 
-RazorClassLibrary2 is the project that needs to be packaged as a Nuget package and that package (not the project) referenced by RazorClassLibrary1. 
+#### WebWorkers.Issue4 - Blazor WASM App
+The .Net 9 Blazor WASM project `WebWorkers.Issue4` references the RCL project `RazorClassLibrary1` and has compression enabled with `<CompressionEnabled>true</CompressionEnabled>` (default if omitted.)
 
-If `<StaticWebAssetBasePath>` is set to `/` in the referenced RazorClassLibrary2 Nuget package, the `publish` of `WebWorkers.Issue4` will fail. 
+#### RazorClassLibrary1 - RCL
+`RazorClassLibrary1` is a Razor Class Library that references a Nuget packaged RCL that uses `<StaticWebAssetBasePath>/</StaticWebAssetBasePath>`. This can be a Nuget packaged `RazorClassLibrary2` but it must be a `PackageReference` not a `ProjectReference`.
 
-Using a RazorClassLibrary2 Nuget package with  `<StaticWebAssetBasePath>/./</StaticWebAssetBasePath>` and the publish succeeds. But debugging will fail (404 for the Nuget web assets).
+#### RazorClassLibrary2 - RCL Nuget Package
+`RazorClassLibrary2` is a minimal Razor Class Library to demonstrate the issue. It is a bare RCL that uses `<StaticWebAssetBasePath>/</StaticWebAssetBasePath>`. It needs to be packaged as a Nuget package and that package (not the project) must be referenced by `RazorClassLibrary1`. 
+
+#### RazorClassLibrary2 alternative
+To demonstrate the bug without requiring creating a Nuget package using `RazorClassLibrary2`, the package `<PackageReference Include="SpawnDev.BlazorJS.WebWorkers" Version="2.5.22" />` (which uses `<StaticWebAssetBasePath>/</StaticWebAssetBasePath>`) can be referenced in the `RazorClassLibrary1` RCL project.
+
+#### Publish to see bug
+Run `dotnet publish --nologo --configuration Release --output bin\Publish` in the `WebWorkers.Issue4` folder to see the error. 
+
+#### Workaround
+Disable compression (`<CompressionEnabled>false</CompressionEnabled>`) in `WebWorkers.Issue4.csproj` and the publish will succeed.
 
 This issue does not exist in .Net 8 or earlier.
