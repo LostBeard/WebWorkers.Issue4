@@ -1,0 +1,62 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+	<PropertyGroup>
+		<TargetFrameworks>net8.0;net9.0</TargetFrameworks>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Version>3.0.0</Version>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<EmbedAllSources>true</EmbedAllSources>
+		<DebugType>Embedded</DebugType>
+		<Title>RazorClassLibrary2</Title>
+		<Authors>LostBeard</Authors>
+		<Description>This project must be packaged into a Nuget package and referenced by an RCL used in a .Net 9 Blazor WASM app that uses compression</Description>
+		<PackageProjectUrl>https://github.com/LostBeard/WebWorkers.Issue4</PackageProjectUrl>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+		<RepositoryUrl>https://github.com/LostBeard/WebWorkers.Issue4.git</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageTags>RazorClassLibrary2</PackageTags>
+		<NoPackageAnalysis>true</NoPackageAnalysis>
+		<EnableDefaultCompileItems>true</EnableDefaultCompileItems>
+		<IsPackable>true</IsPackable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="LICENSE.txt" Pack="true" PackagePath="\" />
+		<None Include="README.md" Pack="true" PackagePath="\" />
+	</ItemGroup>
+
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net8.0' ">
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.11" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.11" PrivateAssets="all" />
+	</ItemGroup>
+
+	<ItemGroup Condition=" '$(TargetFramework)' == 'net9.0' ">
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="9.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="9.0.0" PrivateAssets="all" />
+	</ItemGroup>
+
+	<PropertyGroup>
+
+		<!-- 
+		     The property `StaticWebAssetBasePath` will cause an exception during the static web asset compression stage of a publish build 
+		     when used in a project published as a Nuget and referenced by an Razor Class Libary which is referenced by a .Net 9 Blazor WASM app  
+			 
+			 A workaround is for the Nuget project to use /./ as the web asset path instead of / (!! Breaks debugging !!)
+			 
+			 Show bug
+			 <StaticWebAssetBasePath>/</StaticWebAssetBasePath>
+			 
+			 Workaround bug (allows publish to succeed but breaks debug builds/debugging)
+			 <StaticWebAssetBasePath>/./</StaticWebAssetBasePath>
+		-->
+		<StaticWebAssetBasePath>/</StaticWebAssetBasePath>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<SupportedPlatform Include="browser" />
+	</ItemGroup>
+
+</Project>
