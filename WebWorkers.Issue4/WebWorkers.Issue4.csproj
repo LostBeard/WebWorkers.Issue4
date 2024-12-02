@@ -4,6 +4,11 @@
 		<TargetFramework>net9.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
+		<!-- 
+			publish will succeed if either:
+			- CompressionEnabled is set to false
+			- TargetFramework is set to net8.0
+		-->
 		<CompressionEnabled>true</CompressionEnabled>
 	</PropertyGroup>
 
@@ -16,9 +21,9 @@
 		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="9.0.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="9.0.0" PrivateAssets="all" />
 	</ItemGroup>
-	
+
 	<ItemGroup>
-	  <ProjectReference Include="..\RazorClassLibrary1\RazorClassLibrary1.csproj" />
+		<ProjectReference Include="..\RazorClassLibrary1\RazorClassLibrary1.csproj" />
 	</ItemGroup>
 
 </Project>

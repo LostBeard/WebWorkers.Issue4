@@ -4,10 +4,14 @@ This issue started as a report about an [issue (#4)](https://github.com/LostBear
 
 Repo: [WebWorkers.Issue4](https://github.com/LostBeard/WebWorkers.Issue4)
 
-### Issue 
+## Issue 
 The .Net 9 Blazor WASM compression build task, `ApplyCompressionNegotiation`, fails due to an unknown issue handling Razor Class Library Nuget packages that use `<StaticWebAssetBasePath>/</StaticWebAssetBasePath>` when referenced by another Razor Class Library
 
-### Steps to reproduce
+## 2 Ways To Reproduce
+- [Steps to reproduce](#steps-to-reproduce) - create projects from scratch
+- [Repo Demo Projects](#repo-demo-projects) - uses this repo
+
+### Steps To Reproduce
 1. Create a solution with a .Net 9 Razor Class Library (RCL) and set `<StaticWebAssetBasePath>/</StaticWebAssetBasePath>` in its `.csproj`.
 2. Publish the RCL as a Nuget package (publishing locally is fine)
 3. Create a new solution with an .Net 9 Razor Class Library and a .Net 9 Blazor WASM
@@ -46,20 +50,21 @@ Changing:
 To:  
 `<StaticWebAssetBasePath>/./</StaticWebAssetBasePath>`  
 
-## Repo Demo Projects
+### Repo Demo Projects
 The projects in this repo demonstrate this bug. 
 
 #### WebWorkers.Issue4 - Blazor WASM App
 The .Net 9 Blazor WASM project `WebWorkers.Issue4` references the RCL project `RazorClassLibrary1` and has compression enabled with `<CompressionEnabled>true</CompressionEnabled>` (default if omitted.)
 
 #### RazorClassLibrary1 - RCL
-`RazorClassLibrary1` is a Razor Class Library that references a Nuget packaged RCL that uses `<StaticWebAssetBasePath>/</StaticWebAssetBasePath>`. This can be a Nuget packaged `RazorClassLibrary2` but it must be a `PackageReference` not a `ProjectReference`.
+`RazorClassLibrary1` is a Razor Class Library that references any Nuget package RCL that uses `<StaticWebAssetBasePath>/</StaticWebAssetBasePath>`.  
+This can be a Nuget packaged `RazorClassLibrary2`, but it must be a `PackageReference` not a `ProjectReference`. Alternatively it can be `SpawnDev.BlazorJS.WebWorkers` version `2.5.22`.
 
 #### RazorClassLibrary2 - RCL Nuget Package
 `RazorClassLibrary2` is a minimal Razor Class Library to demonstrate the issue. It is a bare RCL that uses `<StaticWebAssetBasePath>/</StaticWebAssetBasePath>`. It needs to be packaged as a Nuget package and that package (not the project) must be referenced by `RazorClassLibrary1`. 
 
 #### RazorClassLibrary2 alternative
-To demonstrate the bug without requiring creating a Nuget package using `RazorClassLibrary2`, the package `<PackageReference Include="SpawnDev.BlazorJS.WebWorkers" Version="2.5.22" />` (which uses `<StaticWebAssetBasePath>/</StaticWebAssetBasePath>`) can be referenced in the `RazorClassLibrary1` RCL project.
+To demonstrate the bug without requiring creating a Nuget package using `RazorClassLibrary2`, the package `<PackageReference Include="SpawnDev.BlazorJS.WebWorkers" Version="2.5.22" />` (which uses `<StaticWebAssetBasePath>/</StaticWebAssetBasePath>`) can be referenced by `RazorClassLibrary1`.
 
 #### Publish to see bug
 Run `dotnet publish --nologo --configuration Release --output bin\Publish` in the `WebWorkers.Issue4` folder to see the error. 
