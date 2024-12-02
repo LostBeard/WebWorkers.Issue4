@@ -4,13 +4,12 @@
 .Net 9 Blazor WASM compression build task fails due to issue handling of Razor Class Library Nuget packages that use `<StaticWebAssetBasePath>/</StaticWebAssetBasePath>` when referenced by another Razor Class Library
 
 ### Steps to reproduce
-- Create a solution with a .Net 9 Razor Class Library and set `<StaticWebAssetBasePath>/</StaticWebAssetBasePath>` in its `.csproj`.
-- Publish the RCL as a Nuget package (publishing locally is fine)
-
-- Create a new solution with a .Net 9 Razor Class Library and a .Net 9 Blazor WASM
-- In the RCL, reference the Nuget package
-- In the Blazor WASM app reference the RCL project in the same solution
-- Publish the Blazor WASM
+1. Create a solution with a .Net 9 Razor Class Library (RCL) and set `<StaticWebAssetBasePath>/</StaticWebAssetBasePath>` in its `.csproj`.
+2. Publish the RCL as a Nuget package (publishing locally is fine)
+3. Create a new solution with an .Net 9 Razor Class Library and a .Net 9 Blazor WASM
+4. In the RCL, reference the Nuget package from step 2
+5. In the Blazor WASM app reference the RCL project in the same solution
+6. Publish the Blazor WASM
 
 You get an exception similar to:  
 ```
@@ -49,7 +48,7 @@ The projects in this repo demonstrate this bug.
 
 RazorClassLibrary2 is the project that needs to be packaged as a Nuget package and that package (not the project) referenced by RazorClassLibrary1. 
 
-If `<StaticWebAssetBasePath>` is set to `/` in the referenced RazorClassLibrary2 Nuget package, the publish will fail. 
+If `<StaticWebAssetBasePath>` is set to `/` in the referenced RazorClassLibrary2 Nuget package, the `publish` of `WebWorkers.Issue4` will fail. 
 
 Using a RazorClassLibrary2 Nuget package with  `<StaticWebAssetBasePath>/./</StaticWebAssetBasePath>` and the publish succeeds. But debugging will fail (404 for the Nuget web assets).
 

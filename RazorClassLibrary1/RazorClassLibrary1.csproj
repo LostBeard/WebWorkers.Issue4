@@ -19,15 +19,7 @@
 	<ItemGroup>
 		<!--
 			To demonstrate this bug, this RCL should reference the Nuget packaged RazorClassLibrary2 RCL
-			
-			Demo Bug use version 2.0.0 which uses:
-			<StaticWebAssetBasePath>/</StaticWebAssetBasePath>
-			
-			Demo bug workaround use 3.0.0 which uses:
-			<StaticWebAssetBasePath>/./</StaticWebAssetBasePath>
-			
-			!IMPORTANT! - The above workaround breaks debugging
-			
+						
 			NOTE: RazorClassLibrary2 must be a Nuget package and not a referenced project to trigger the bug. It can be locally hosted.
 		-->
 		<PackageReference Include="RazorClassLibrary2" Version="2.0.0" />
