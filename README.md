@@ -56,3 +56,4 @@ If `<StaticWebAssetBasePath>` is set to `/` in the referenced RazorClassLibrary2
 
 Using a RazorClassLibrary2 Nuget package with  `<StaticWebAssetBasePath>/./</StaticWebAssetBasePath>` and the publish succeeds. But debugging will fail (404 for the Nuget web assets).
 
+This issue does not exist in .Net 8 or earlier.
