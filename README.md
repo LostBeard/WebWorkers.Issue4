@@ -1,7 +1,11 @@
 # WebWorkers.Issue4
 
-### Bug: 
-.Net 9 Blazor WASM compression build task fails due to issue handling of Razor Class Library Nuget packages that use `<StaticWebAssetBasePath>/</StaticWebAssetBasePath>` when referenced by another Razor Class Library
+This issue started as a report about an [issue (#4)](https://github.com/LostBeard/SpawnDev.BlazorJS.WebWorkers/issues/4) with [SpawnDev.BlazorJS.WebWorkers](https://github.com/LostBeard/SpawnDev.BlazorJS.WebWorkers) but the issue may actually lie in a .Net 9 SDK build task.
+
+Repo: [WebWorkers.Issue4](https://github.com/LostBeard/WebWorkers.Issue4)
+
+### Issue 
+The .Net 9 Blazor WASM compression build task, `ApplyCompressionNegotiation`, fails due to an unknown issue handling Razor Class Library Nuget packages that use `<StaticWebAssetBasePath>/</StaticWebAssetBasePath>` when referenced by another Razor Class Library
 
 ### Steps to reproduce
 1. Create a solution with a .Net 9 Razor Class Library (RCL) and set `<StaticWebAssetBasePath>/</StaticWebAssetBasePath>` in its `.csproj`.
