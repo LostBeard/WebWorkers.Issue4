@@ -64,4 +64,12 @@ Run `dotnet publish --nologo --configuration Release --output bin\Publish` in th
 #### Workaround
 Disable compression (`<CompressionEnabled>false</CompressionEnabled>`) in `RazorClassLibrary1.csproj` and the publish will succeed and all static web assets will compress normally.
 
+#### TL;DR
+If you get the error `Endpoints not found for compressed asset` during a Blazor `publish` build, a possible fix is to modify your Razor Class Library's `.csproj`:  
+```xml
+<PropertyGroup>
+	<CompressionEnabled>false</CompressionEnabled>
+</PropertyGroup>
+```
+
 This issue does not exist in .Net 8 or earlier.
