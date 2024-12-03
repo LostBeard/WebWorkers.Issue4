@@ -11,7 +11,9 @@
 			Workaround to failed publish build
 			<CompressionEnabled>false</CompressionEnabled>
 			
-			Uncomment the below line to use bug workaround
+			Uncomment the below line to use bug workaround.
+			The Blazor app can still use compression. 
+			All static web assets will be compressed as usual.
 		-->
 		<!-- <CompressionEnabled>false</CompressionEnabled> -->
 	</PropertyGroup>
@@ -28,21 +30,16 @@
 
 	<ItemGroup>
 		<!--
-			To demonstrate this bug, this Razor Class Library should reference the Nuget packaged RazorClassLibrary2 RCL
-						
+			To demonstrate this bug, this Razor Class Library should reference any Razor Class Library Nuget package that uses:
+			<StaticWebAssetBasePath>/</StaticWebAssetBasePath>
+			
+			RazorClassLibrary2 can be packaged and used.						
 			NOTE: RazorClassLibrary2 must be a Nuget package and not a referenced project to trigger the bug. It can be locally hosted.
-		-->
-		<!-- <PackageReference Include="RazorClassLibrary2" Version="2.0.6" /> -->
-
-		<!-- 
+			
 			Alternatively, reference SpawnDev.BlazorJS.WebWorkers:		
 			<PackageReference Include="SpawnDev.BlazorJS.WebWorkers" Version="2.5.22" /> 
-		
-			which uses:		
-			<StaticWebAssetBasePath>/</StaticWebAssetBasePath>
-		
-			and triggers this issue on publish builds
 		-->
+		<!-- <PackageReference Include="RazorClassLibrary2" Version="2.0.6" /> -->
 		<PackageReference Include="SpawnDev.BlazorJS.WebWorkers" Version="2.5.22" />
 		
 	</ItemGroup>
