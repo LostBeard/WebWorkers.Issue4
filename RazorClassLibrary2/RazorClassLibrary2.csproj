@@ -39,12 +39,9 @@
 	</ItemGroup>
 
 	<PropertyGroup>
-
 		<!-- 
 		     The property `StaticWebAssetBasePath` will cause an exception during the static web asset compression stage of a publish build 
 		     when used in a project published as a Nuget and referenced by an Razor Class Libary which is referenced by a .Net 9 Blazor WASM app  
-			 
-			 
 		-->
 		<StaticWebAssetBasePath>/</StaticWebAssetBasePath>
 	</PropertyGroup>

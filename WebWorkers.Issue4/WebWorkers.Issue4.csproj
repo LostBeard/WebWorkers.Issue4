@@ -4,11 +4,6 @@
 		<TargetFramework>net9.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
-		<!-- 
-			publish will succeed if either:
-			- CompressionEnabled is set to false
-			- TargetFramework is set to net8.0
-		-->
 		<CompressionEnabled>true</CompressionEnabled>
 	</PropertyGroup>
 

@@ -26,10 +26,6 @@
 		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="9.0.0" PrivateAssets="all" />
 	</ItemGroup>
 
-	<PropertyGroup>
-		<_DebugSpawnDevWebWorkersBuildTasks>false</_DebugSpawnDevWebWorkersBuildTasks>
-	</PropertyGroup>
-
 	<ItemGroup>
 		<!--
 			To demonstrate this bug, this Razor Class Library should reference the Nuget packaged RazorClassLibrary2 RCL
