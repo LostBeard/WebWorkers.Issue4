@@ -40,15 +40,7 @@ Restore complete (0.5s)
 Build failed with 1 error(s) and 1 warning(s) in 15.4s
 ```
 
-7. Workaround: Disable compression (`<CompressionEnabled>false</CompressionEnabled>`) in the Blazor WASM app project's `.csproj` and the publish will succeed.
-
-A partial (useless*) workaround that will enable a `publish` build is to modify the `.csproj` of the Nuget package project. *But it breaks debug builds. The Nuget packages web assets will 404.
-
-Changing:  
-`<StaticWebAssetBasePath>/</StaticWebAssetBasePath>`  
-
-To:  
-`<StaticWebAssetBasePath>/./</StaticWebAssetBasePath>`  
+7. Workaround: Disable compression (`<CompressionEnabled>false</CompressionEnabled>`) in the 2nd solution's Razor Class Library's `.csproj` and the publish will succeed and all static web assets will compress normally.
 
 ### Repo Demo Projects
 The projects in this repo demonstrate this bug. 
@@ -63,13 +55,13 @@ This can be a Nuget packaged `RazorClassLibrary2`, but it must be a `PackageRefe
 #### RazorClassLibrary2 - RCL Nuget Package
 `RazorClassLibrary2` is a minimal Razor Class Library to demonstrate the issue. It is a bare RCL that uses `<StaticWebAssetBasePath>/</StaticWebAssetBasePath>`. It needs to be packaged as a Nuget package and that package (not the project) must be referenced by `RazorClassLibrary1`. 
 
-#### RazorClassLibrary2 alternative
+#### RazorClassLibrary2 Alternative
 To demonstrate the bug without requiring creating a Nuget package using `RazorClassLibrary2`, the package `<PackageReference Include="SpawnDev.BlazorJS.WebWorkers" Version="2.5.22" />` (which uses `<StaticWebAssetBasePath>/</StaticWebAssetBasePath>`) can be referenced by `RazorClassLibrary1`.
 
 #### Publish to see bug
 Run `dotnet publish --nologo --configuration Release --output bin\Publish` in the `WebWorkers.Issue4` folder to see the error. 
 
 #### Workaround
-Disable compression (`<CompressionEnabled>false</CompressionEnabled>`) in `WebWorkers.Issue4.csproj` and the publish will succeed.
+Disable compression (`<CompressionEnabled>false</CompressionEnabled>`) in `RazorClassLibrary1.csproj` and the publish will succeed and all static web assets will compress normally.
 
 This issue does not exist in .Net 8 or earlier.

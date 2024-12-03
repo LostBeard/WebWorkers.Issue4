@@ -4,6 +4,16 @@
 		<TargetFrameworks>net8.0;net9.0</TargetFrameworks>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
+		<!-- 
+			publish build of a Blazor WASM app the references this RCL will fail if CompressionEnabled is not set to false here. 
+			This flag will not affect the compression of a Blazor App that references this RCL
+			
+			Workaround to failed publish build
+			<CompressionEnabled>false</CompressionEnabled>
+			
+			Uncomment the below line to use bug workaround
+		-->
+		<!-- <CompressionEnabled>false</CompressionEnabled> -->
 	</PropertyGroup>
 
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net8.0' ">
@@ -16,14 +26,18 @@
 		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="9.0.0" PrivateAssets="all" />
 	</ItemGroup>
 
+	<PropertyGroup>
+		<_DebugSpawnDevWebWorkersBuildTasks>false</_DebugSpawnDevWebWorkersBuildTasks>
+	</PropertyGroup>
+
 	<ItemGroup>
 		<!--
 			To demonstrate this bug, this Razor Class Library should reference the Nuget packaged RazorClassLibrary2 RCL
 						
 			NOTE: RazorClassLibrary2 must be a Nuget package and not a referenced project to trigger the bug. It can be locally hosted.
 		-->
-		<!-- <PackageReference Include="RazorClassLibrary2" Version="2.0.2" /> -->
-		
+		<!-- <PackageReference Include="RazorClassLibrary2" Version="2.0.6" /> -->
+
 		<!-- 
 			Alternatively, reference SpawnDev.BlazorJS.WebWorkers:		
 			<PackageReference Include="SpawnDev.BlazorJS.WebWorkers" Version="2.5.22" /> 
