@@ -71,6 +71,6 @@ If you get the error `Endpoints not found for compressed asset` during a Blazor 
   <CompressionEnabled>false</CompressionEnabled>
 </PropertyGroup>
 ```
-It does affect, or disable compression of any part of the Blazor app, but it does prevent the `Endpoints not found for compressed asset` error.
+It does not affect, or disable compression of any part of the Blazor app, but it does prevent the `Endpoints not found for compressed asset` error.
 
 This issue does not exist in .Net 8 or earlier.
