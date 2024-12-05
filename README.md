@@ -19,8 +19,13 @@ To see the issue:
 - Run `_publish.bat` in `WebWorkers.Issue4` folder to do a Release `publish` build
 - `The "ApplyCompressionNegotiation" task failed unexpectedly ...`
 
-Test workaround:
+Test workaround 1:
 - Uncomment `<CompressionEnabled>false</CompressionEnabled>` in `RazorClassLibrary1.csproj`
+- Run `_publish.bat` in `WebWorkers.Issue4` folder to do a Release `publish` build
+- `Build succeeded`
+
+Test workaround 2:
+- Remove `net9.0` from `<TargetFrameworks>net8.0;net9.0</TargetFrameworks>` in `RazorClassLibrary1.csproj`
 - Run `_publish.bat` in `WebWorkers.Issue4` folder to do a Release `publish` build
 - `Build succeeded`
 
