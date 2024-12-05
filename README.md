@@ -15,8 +15,8 @@ The .Net 9 Blazor WASM compression build task, `ApplyCompressionNegotiation`, fa
 1. Create a solution with a .Net 9 Razor Class Library (RCL) and set `<StaticWebAssetBasePath>/</StaticWebAssetBasePath>` in its `.csproj`.
 2. Publish the RCL as a Nuget package (publishing locally is fine)
 3. Create a new solution with an .Net 9 Razor Class Library and a .Net 9 Blazor WASM
-4. In the RCL, reference the Nuget package from step 2
-5. In the Blazor WASM app reference the RCL project in the same solution
+4. In the RCL, PackageReference to the Nuget package from step 2 (a ProjectReference does not trigger the bug)
+5. In the Blazor WASM app add a ProjectReference to the RCL project in the same solution
 6. Run `dotnet publish --nologo --configuration Release --output bin\Publish` in the Blazor WASM app folder to see the error. 
 
 You get an exception similar to:  
