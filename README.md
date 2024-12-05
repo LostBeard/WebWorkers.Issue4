@@ -7,11 +7,24 @@ Repo: [WebWorkers.Issue4](https://github.com/LostBeard/WebWorkers.Issue4)
 ## Issue 
 The .Net 9 Blazor WASM compression build task, `ApplyCompressionNegotiation`, fails due to an unknown issue handling Razor Class Library Nuget packages that use `<StaticWebAssetBasePath>/</StaticWebAssetBasePath>` when referenced by another Razor Class Library
 
-## 2 Ways To Reproduce
-- [Steps to reproduce](#steps-to-reproduce) - create projects from scratch
-- [Repo Demo Projects](#repo-demo-projects) - uses this repo
+## 3 Ways To Reproduce This Issue
+- [Quick Start](#quick-start) - fastest way to see the issue and a possible workaround
+- [Steps To Reproduce From Scratch](#steps-to-reproduce-from-scratch) - create projects from scratch
+- [Repo Demo Projects](#repo-demo-projects) - uses this repo and demo Nuget project
 
-### Steps To Reproduce
+### Quick Start
+How demo issue with this repo [WebWorkers.Issue4](https://github.com/LostBeard/WebWorkers.Issue4):
+To see the issue:  
+- Clone repo
+- Run `_publish.bat` in `WebWorkers.Issue4` folder to do a Release `publish` build
+- FAILED WITH 1 ERRROR ...
+
+Test workaround:
+- Uncomment `<CompressionEnabled>false</CompressionEnabled>` in `RazorClassLibrary1.csproj`
+- Run `_publish.bat` in `WebWorkers.Issue4` folder to do a Release `publish` build
+- SUCCESS
+
+### Steps To Reproduce From Scratch
 1. Create a solution with a .Net 9 Razor Class Library (RCL) and set `<StaticWebAssetBasePath>/</StaticWebAssetBasePath>` in its `.csproj`.
 2. Publish the RCL as a Nuget package (publishing locally is fine)
 3. Create a new solution with an .Net 9 Razor Class Library and a .Net 9 Blazor WASM
