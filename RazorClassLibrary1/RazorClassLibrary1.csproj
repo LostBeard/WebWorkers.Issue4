@@ -1,6 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
 	<PropertyGroup>
+		<!-- 
+			Another workaround is to not target net9.0 in the RCL that uses the Nuget RCL
+			(this will not work as a workaround in the Nuget RCL, must be done here)
+		-->
 		<TargetFrameworks>net8.0;net9.0</TargetFrameworks>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
