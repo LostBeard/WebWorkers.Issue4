@@ -13,16 +13,16 @@ The .Net 9 Blazor WASM compression build task, `ApplyCompressionNegotiation`, fa
 - [Repo Demo Projects](#repo-demo-projects) - uses this repo and demo Nuget project
 
 ### Quick Start
-How demo issue with this repo [WebWorkers.Issue4](https://github.com/LostBeard/WebWorkers.Issue4):
+How to demo the issue with this repo [WebWorkers.Issue4](https://github.com/LostBeard/WebWorkers.Issue4):
 To see the issue:  
 - Clone repo
 - Run `_publish.bat` in `WebWorkers.Issue4` folder to do a Release `publish` build
-- FAILED WITH 1 ERRROR ...
+- `The "ApplyCompressionNegotiation" task failed unexpectedly ...`
 
 Test workaround:
 - Uncomment `<CompressionEnabled>false</CompressionEnabled>` in `RazorClassLibrary1.csproj`
 - Run `_publish.bat` in `WebWorkers.Issue4` folder to do a Release `publish` build
-- SUCCESS
+- `Build succeeded`
 
 ### Steps To Reproduce From Scratch
 1. Create a solution with a .Net 9 Razor Class Library (RCL) and set `<StaticWebAssetBasePath>/</StaticWebAssetBasePath>` in its `.csproj`.
